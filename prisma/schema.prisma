@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id           Int      @id @default(autoincrement())
+  cpf          String   @unique // Mask: 000.000.000-00
+  fullName     String
+  email        String   @unique
+  phone        String   // Mask: (00) 00000-0000
+  zipCode      String   // Mask: 00000-000
+  state        String
+  city         String
+  neighborhood String
+  address      String
+  number       String
+  complement   String?
+
+  password_hash String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  orders  Order[]
+
+  @@map("users")
+}
+
+
+model Order {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  status      String   // Ex: 'pending', 'shipped', 'delivered'
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  total       Float
+  address     String
+  zipCode     String
+  paymentType String   // Ex: 'credit_card', 'paypal', 'bank_transfer'
+  user        User     @relation(fields: [userId], references: [id])
+  foods       FoodOnOrder[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("orders")
+}
+
+
+model Food {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  orders      FoodOnOrder[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("foods")
+}
+
+
+model FoodOnOrder {
+  orderId     Int
+  foodId      Int
+  quantity    Int
+  order       Order   @relation(fields: [orderId], references: [id])
+  food        Food    @relation(fields: [foodId], references: [id])
+  @@id([orderId, foodId])
+}
