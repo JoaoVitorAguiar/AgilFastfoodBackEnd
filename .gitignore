@@ -32,3 +32,14 @@ npm-debug.log
 .DS_Store
 
 .env
+
+javascript/**/migrations/
+typescript/**/migrations/
+misc/**/migrations/
+databases/**/migrations/
+experimental/**/*.db
+.next
+.vscode/
+.nuxt
+dev.db
+*.env*
