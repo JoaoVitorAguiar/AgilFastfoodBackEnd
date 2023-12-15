@@ -39,6 +39,7 @@ misc/**/migrations/
 databases/**/migrations/
 experimental/**/*.db
 .next
+.prisma/
 .vscode/
 .nuxt
 dev.db
