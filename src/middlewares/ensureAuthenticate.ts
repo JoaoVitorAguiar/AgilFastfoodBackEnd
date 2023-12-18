@@ -16,7 +16,7 @@ export function ensureAuthenticate(
     ;}
     const [_, token] = authHeader.split(' ');
     try{
-        const {sub} = verify(token, 'minhaChaveMuitoSecreta');
+        const {sub} = verify(token, process.env.JWT_SECRET_KEY);
         request.userId = sub as string;
         next();
     } catch(error){
