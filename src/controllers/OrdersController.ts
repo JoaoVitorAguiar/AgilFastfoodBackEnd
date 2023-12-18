@@ -112,12 +112,19 @@ export class OrdersController  {
                 foods: true,
             },
         })
-
+    
         if(!order) throw new AppError('Order not found', 404); 
-
+    
+        // Disassociate foods from the order
+        await prisma.foodOnOrder.deleteMany({
+            where: { orderId: id }
+        });
+    
+        // Now you can delete the order
         await prisma.order.delete({
             where: {id}
         })
         return response.status(200).json(order);
     }
+    
 }
