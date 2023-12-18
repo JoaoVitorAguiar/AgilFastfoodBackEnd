@@ -75,7 +75,7 @@ export class OrdersController  {
             })).nullish(),
             // Add other fields as necessary
         }).strict();
-
+    
         const { foods } = bodySchema.parse(request.body);
         const user_id = request.userId;
         const orderExists = await prisma.order.findFirst({
@@ -84,13 +84,25 @@ export class OrdersController  {
                 foods: true,
             },
         })
-
+    
         if(!orderExists) throw new AppError('Order not found', 404); 
+        if(!foods) throw new AppError('Foods not defined', 404);
 
+        // Check if all foods exist
+        for (const food of foods) {
+            const foodExists = await prisma.food.findUnique({
+                where: { id: food.foodId },
+            });
+    
+            if (!foodExists) {
+                throw new AppError(`Food with id ${food.foodId} not found`, 404);
+            }
+        }
+    
         let data = {}
         if (foods) data = {foods: { set: foods }}; 
         // Add other fields as necessary
-
+    
         const order = await prisma.order.update({
             where: {id},
             data,
@@ -98,9 +110,10 @@ export class OrdersController  {
                 foods: true,
             },
         });
-
+    
         return response.status(200).json(order);
     }
+    
 
     public async delete(request : Request, response : Response) {
         const { id } = request.params;
