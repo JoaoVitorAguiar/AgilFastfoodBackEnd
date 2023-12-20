@@ -32,6 +32,6 @@ export async function insertAdminUser(prisma: PrismaClient) {
     });
     console.log('Admin user created:');
   } else {
-    console.log('Admin user already exists:', existingAdmin);
+    console.log('Admin user already exists:');
   }
 }
