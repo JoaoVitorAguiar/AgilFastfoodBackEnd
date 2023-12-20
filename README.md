@@ -1,6 +1,23 @@
-# API Express
+## API Express
 
-Bem-vindo à documentação da API Node.js do API Express. Esta API permite gerenciar usuários em uma aplicação. Ela oferece operações para listar, criar, atualizar e excluir usuários.
+Este é um aplicativo Node.js que usa o framework Express.js para roteamento e middleware. Ele também usa o Prisma, um ORM para PostgreSQL, MySQL, SQLite, SQL Server, MongoDB e CockroachDB.
+
+## Configuração
+
+### Pré-requisitos
+
+- Node.js
+- Prisma
+
+### Instalação
+
+1. Clone o repositório
+2. Instale as dependências com `npm install`
+3. Configure as variáveis de ambiente no arquivo `.env`
+
+## Uso
+
+Inicie o servidor com `npm start`. O servidor começará na porta 3333.
 
 ## Configuração
 
