@@ -12,13 +12,17 @@ Esta é a documentação da API para o sistema de pedidos "Agil Fast Food". A AP
 
 ### Instalação
 
-1. Clone o repositório
+1. Clone o repositório `git clone https://github.com/JoaoVitorAguiar/AgilFastfoodBackEnd`
 2. Instale as dependências com `npm install`
 3. Configure as variáveis de ambiente no arquivo `.env`
 
 ## Uso
 
 Inicie o servidor com `npm run dev`. O servidor começará na porta 3333.
+
+## Front end 
+
+O Front end que consome essa api pode ser encontrado em: https://github.com/JoaoVitorAguiar/AgilFastfoodFrontEnd
 
 ## Configuração
 
