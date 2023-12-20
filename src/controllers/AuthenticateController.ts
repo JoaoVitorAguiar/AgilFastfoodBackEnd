@@ -37,7 +37,8 @@ export class AuthenticateController  {
         );
         return response.status(200).json({
             token: token,
-            user: user.fullName
+            user: user.fullName,
+            isAdmin: user.isAdmin
         });
     }
 }
