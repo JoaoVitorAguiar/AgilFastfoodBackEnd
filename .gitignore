@@ -42,5 +42,3 @@ experimental/**/*.db
 .prisma/
 .vscode/
 .nuxt
-dev.db
-*.env*
