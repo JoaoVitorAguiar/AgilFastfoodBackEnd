@@ -17,7 +17,7 @@ Este é um aplicativo Node.js que usa o framework Express.js para roteamento e m
 
 ## Uso
 
-Inicie o servidor com `npm start`. O servidor começará na porta 3333.
+Inicie o servidor com `npm run dev`. O servidor começará na porta 3333.
 
 ## Configuração
 
