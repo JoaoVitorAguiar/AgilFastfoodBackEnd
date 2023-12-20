@@ -9,11 +9,11 @@
 <h3>Instalação</h3>
 <ol>
   <li>Clone o repositório</li>
-  <li>Instale as dependências com <code>npm install</code></li>
+  <li>Instale as dependências com <code>npm install</code> ou <code>yarn</code>(recomendado)</li>
   <li>Configure as variáveis de ambiente no arquivo <code>.env</code></li>
 </ol>
 <h2>Uso</h2>
-<p>Inicie o servidor com <code>npm start</code>. O servidor será iniciado na porta 3333.</p>
+<p>Inicie o servidor com <code>npm run dev</code>. O servidor será iniciado na porta 3333.</p>
 <h2>Rotas</h2>
 <h3>GET /users</h3>
 <p>Lista todos os usuários. As senhas dos usuários são excluídas das respostas.</p>
