@@ -48,7 +48,6 @@ export class OrdersController  {
                 foodId: Zod.string(),
                 quantity: Zod.number().int(),
             })),
-            // Add other fields as necessary
         }).strict();
 
         const { foods } = bodySchema.parse(request.body);
@@ -64,7 +63,7 @@ export class OrdersController  {
                 foods: {
                     create: foods,
                 },
-                // Add other fields as necessary
+
             },
             include: {
                 foods: true,
@@ -80,7 +79,6 @@ export class OrdersController  {
                 foodId: Zod.string(),
                 quantity: Zod.number().int(),
             })).nullish(),
-            // Add other fields as necessary
         }).strict();
     
         const { foods } = bodySchema.parse(request.body);
@@ -95,7 +93,6 @@ export class OrdersController  {
         if(!orderExists) throw new AppError('Order not found', 404); 
         if(!foods) throw new AppError('Foods not defined', 404);
 
-        // Check if all foods exist
         for (const food of foods) {
             const foodExists = await prisma.food.findUnique({
                 where: { id: food.foodId },
@@ -135,12 +132,10 @@ export class OrdersController  {
     
         if(!order) throw new AppError('Order not found', 404); 
     
-        // Disassociate foods from the order
         await prisma.foodOnOrder.deleteMany({
             where: { orderId: id }
         });
     
-        // Now you can delete the order
         await prisma.order.delete({
             where: {id}
         })

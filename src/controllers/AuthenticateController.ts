@@ -29,7 +29,7 @@ export class AuthenticateController  {
 
         const token = sign(
             { userId: user.id },
-            process.env.JWT_SECRET_KEY, // Use a secret key from environment variables
+            process.env.JWT_SECRET_KEY, // Definindo a chave secreta em .env
             {
                 subject: user.id.toString(),
                 expiresIn: '1d'
