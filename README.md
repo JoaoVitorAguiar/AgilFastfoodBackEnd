@@ -1,6 +1,7 @@
-# API Express
+# Documentação da API - Agil Fast Food
 
-Este é um aplicativo Node.js que usa o framework Express.js para roteamento e middleware. Ele também usa o Prisma, um ORM para PostgreSQL, MySQL, SQLite, SQL Server, MongoDB e CockroachDB.
+## Introdução
+Esta é a documentação da API para o sistema de pedidos "Agil Fast Food". A API permite que os usuários adicionem lanches no carrinho, façam pedidos, se registrem e façam login. Os usuários com privilégios de administrador podem adicionar mais pedidos. Além disso, os usuários podem visualizar seu histórico de pedidos.
 
 ## Configuração
 
