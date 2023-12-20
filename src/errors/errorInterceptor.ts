@@ -6,18 +6,20 @@ export function errorInterceptor(
     error: Error, 
     request: Request, 
     response: Response, 
-    next: NextFunction){
-    
-
-    if(error instanceof AppError){
+    next: NextFunction
+) {
+    if (error instanceof AppError) {
         return response.status(error.statusCode).json({
             status: "Error",
-            message: error.message
+            message: error.message,
+            response:  {
+                status: error.statusCode
+            }
         });
     }
 
-    if(error instanceof ZodError){
-        return response.status(400).json({
+    if (error instanceof ZodError) {
+        return response.status(422).json({
             status: 'Validation error',
             message: error.issues
         });
