@@ -11,12 +11,11 @@ usersRoutes.post('/create', controller.create)
 
 usersRoutes.use(ensureAuthenticate);
 
+usersRoutes.use(ensureAdmin);
+// Usuário precisa ser admin
 usersRoutes.get('/show/:id', controller.show) 
 usersRoutes.put('/update/:id', controller.update)
 usersRoutes.delete('/delete/:id', controller.delete)  
-
-usersRoutes.use(ensureAdmin);
-// Usuário precisa ser admin
 usersRoutes.get('/list', controller.list) 
 
 export {usersRoutes}
