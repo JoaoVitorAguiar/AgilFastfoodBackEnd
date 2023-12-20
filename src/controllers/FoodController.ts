@@ -28,9 +28,10 @@ export class FoodController  {
             name: Zod.string().min(3),
             description: Zod.string(),
             price: Zod.number(),
+            imgUrl: Zod.string(),
           }).strict();
       
-          const { name, description, price } = bodySchema.parse(request.body);
+          const { name, description, price, imgUrl } = bodySchema.parse(request.body);
       
           const foodExists = await prisma.food.findFirst({
             where: { name },
@@ -45,6 +46,7 @@ export class FoodController  {
               name,
               description,
               price,
+              imgUrl
             },
           });
       
@@ -69,9 +71,10 @@ export class FoodController  {
             name: Zod.string().min(3).nullish(),
             description: Zod.string().nullish(),
             price: Zod.number().nullish(),
+            imgUrl: Zod.string().nullish(),
           }).strict();
       
-          const { name, description, price } = bodySchema.parse(request.body);
+          const { name, description, price, imgUrl } = bodySchema.parse(request.body);
       
           const foodExists = await prisma.food.findUnique({
             where: { id },
@@ -85,6 +88,7 @@ export class FoodController  {
           if (name) data = { ...data, name };
           if (description) data = { ...data, description };
           if (price) data = { ...data, price };
+          if (imgUrl) data = { ...data, imgUrl };
       
           const food = await prisma.food.update({
             where: { id },
