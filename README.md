@@ -72,7 +72,9 @@ Método: GET
 Descrição: Retorna uma lista de todos os usuários disponíveis.
 
 Exemplo de Solicitação:
+```http
 GET http://localhost:3333/users
+```
 
 Resposta de Exemplo:
 ```json
@@ -122,9 +124,11 @@ Corpo da Solicitação:
 }
 ```
 Exemplo de Solicitação:
-
+```http
 POST http://localhost:3333/users
 Content-Type: application/json
+```
+
 ```json
 {
     "fullName": "Novo Usuário",
@@ -181,9 +185,10 @@ Corpo da Solicitação:
 ```
 
 Exemplo de Solicitação:
-
+```http
 PUT http://localhost:3333/users/f23553cc-bbe4-4a40-b8f9-d7ea9b9cc5f4
 Content-Type: application/json
+```
 
 ```json
 {
