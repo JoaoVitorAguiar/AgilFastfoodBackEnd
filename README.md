@@ -485,4 +485,242 @@ Authorization: Bearer seuTokenDeAcesso
 - 200 OK: Alimento deletado com sucesso.
 - 401 Unauthorized: Token de acesso ausente ou inválido.
 - 403 Forbidden: Apenas administradores podem deletar alimentos.
+
+## Controlador de Pedidos
+
+O controlador de pedidos gerencia as operações relacionadas aos pedidos dos usuários. Aqui estão as funcionalidades disponíveis:
+
+## Listar Pedidos
+
+- **URL:** `/orders`
+- **Método:** `GET`
+- **Descrição:** Retorna uma lista de todos os pedidos do usuário autenticado.
+
+**Exemplo de Solicitação:**
+```http
+GET http://localhost:3333/orders
 ```
+
+**Exemplo de Resposta:**
+```json
+[
+    {
+        "id": "f23553cc-bbe4-4a40-b8f9-d7ea9b9cc5f2",
+        "user": {
+            "id": "user-id",
+            "fullName": "Nome do Usuário",
+            "email": "user@example.com"
+        },
+        "foods": [
+            {
+                "foodId": "food-id-1",
+                "quantity": 2
+            },
+            {
+                "foodId": "food-id-2",
+                "quantity": 1
+            }
+        ],
+        "createdAt": "2023-12-12T23:14:36.855Z",
+        "updatedAt": "2023-12-12T23:16:27.903Z"
+    },
+]
+```
+
+## Detalhes do Pedido
+
+- **URL:** `/orders/:id`
+- **Método:** `GET`
+- **Descrição:** Retorna os detalhes de um pedido específico do usuário autenticado.
+
+**Parâmetros de URL:**
+- `id` (string): ID do pedido.
+
+**Exemplo de Solicitação:**
+```http
+GET http://localhost:3333/orders/f23553cc-bbe4-4a40-b8f9-d7ea9b9cc5f2
+```
+
+**Exemplo de Resposta:**
+```json
+{
+    "id": "f23553cc-bbe4-4a40-b8f9-d7ea9b9cc5f2",
+    "user": {
+        "id": "user-id",
+        "fullName": "Nome do Usuário",
+        "email": "user@example.com"
+    },
+    "foods": [
+        {
+            "foodId": "food-id-1",
+            "quantity": 2
+        },
+        {
+            "foodId": "food-id-2",
+            "quantity": 1
+        }
+    ],
+    "createdAt": "2023-12-12T23:14:36.855Z",
+    "updatedAt": "2023-12-12T23:16:27.903Z"
+}
+```
+
+## Criar Pedido
+
+- **URL:** `/orders`
+- **Método:** `POST`
+- **Descrição:** Cria um novo pedido para o usuário autenticado.
+
+**Corpo da Solicitação:**
+```json
+{
+    "foods": [
+        {
+            "foodId": "food-id-1",
+            "quantity": 2
+        },
+        {
+            "foodId": "food-id-2",
+            "quantity": 1
+        }
+    ]
+}
+```
+
+**Exemplo de Solicitação:**
+```http
+POST http://localhost:3333/orders
+Content-Type: application/json
+
+{
+    "foods": [
+        {
+            "foodId": "food-id-1",
+            "quantity": 2
+        },
+        {
+            "foodId": "food-id-2",
+            "quantity": 1
+        }
+    ]
+}
+```
+
+**Exemplo de Resposta:**
+```json
+{
+    "id": "new-order-id",
+    "user": {
+        "id": "user-id",
+        "fullName": "Nome do Usuário",
+        "email": "user@example.com"
+    },
+    "foods": [
+        {
+            "foodId": "food-id-1",
+            "quantity": 2
+        },
+        {
+            "foodId": "food-id-2",
+            "quantity": 1
+        }
+    ],
+    "createdAt": "2023-12-12T23:14:36.855Z",
+    "updatedAt": "2023-12-12T23:16:27.903Z"
+}
+```
+
+## Atualizar Pedido
+
+- **URL:** `/orders/:id`
+- **Método:** `PUT`
+- **Descrição:** Atualiza um pedido existente do usuário autenticado.
+
+**Parâmetros de URL:**
+- `id` (string): ID do pedido.
+
+**Corpo da Solicitação:**
+```json
+{
+    "foods": [
+        {
+            "foodId": "food-id-3",
+            "quantity": 1
+        }
+    ]
+}
+```
+
+**Exemplo de Solicitação:**
+```http
+PUT http://localhost:3333/orders/new-order-id
+Content-Type: application/json
+
+{
+    "foods": [
+        {
+            "foodId": "food-id-3",
+            "quantity": 1
+        }
+    ]
+}
+```
+
+**Exemplo de Resposta:**
+```json
+{
+    "id": "new-order-id",
+    "user": {
+        "id": "user-id",
+        "fullName": "Nome do Usuário",
+        "email": "user@example.com"
+    },
+    "foods": [
+        {
+            "foodId": "food-id-3",
+            "quantity": 1
+        }
+    ],
+    "createdAt": "2023-12-12T23:14:36.855Z",
+    "updatedAt": "2023-12-12T23:16:27.903Z"
+}
+```
+
+## Deletar Pedido
+
+- **URL:** `/orders/:id`
+- **Método:** `DELETE`
+- **Descrição:** Deleta um pedido existente do usuário autenticado.
+
+**Parâmetros de URL:**
+- `id` (string): ID
+
+ do pedido.
+
+**Exemplo de Solicitação:**
+```http
+DELETE http://localhost:3333/orders/new-order-id
+```
+
+**Exemplo de Resposta:**
+```json
+{
+    "id": "new-order-id",
+    "user": {
+        "id": "user-id",
+        "fullName": "Nome do Usuário",
+        "email": "user@example.com"
+    },
+    "foods": [
+        {
+            "foodId": "food-id-3",
+            "quantity": 1
+        }
+    ],
+    "createdAt": "2023-12-12T23:14:36.855Z",
+    "updatedAt": "2023-12-12T23:16:27.903Z"
+}
+```
+
+**Observação:** Certifique-se de que o usuário esteja autenticado antes de acessar esses endpoints, conforme garantido pelo middleware `ensureAuthenticate`.
+
