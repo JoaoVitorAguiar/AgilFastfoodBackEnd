@@ -1,4 +1,4 @@
-## API Express
+# API Express
 
 Este é um aplicativo Node.js que usa o framework Express.js para roteamento e middleware. Ele também usa o Prisma, um ORM para PostgreSQL, MySQL, SQLite, SQL Server, MongoDB e CockroachDB.
 
@@ -26,12 +26,6 @@ Para testar esse projeto precisa baixar ele na sua máquina e fazer algumas alte
 Utilizei uma abordagem code first, ou seja, uma vez criado o modelo de dados e configurado o contexto de dados, basta utilizar as migrações. Para isso o comando npm install no terminal instala as dependências e o comando npm start inicia o servidor.
 
 Utilizei para o banco de dados o SQLite, por isso a string de conexão deve ser modificada de acordo com as configurações do seu dispositivo. Para modificá-la basta ir em .env. E adequar o DATABASE_URL.
-```json
-{
-    "DATABASE_URL": "file:./dev.db",
-    "JWT_SECRET_KEY": "minhaChaveMuitoSecreta"
-}
-```
 
 ## Tecnologias Utilizadas
 
@@ -47,6 +41,7 @@ A seguir estão as principais tecnologias e ferramentas utilizadas neste projeto
 ### User
 
 Este modelo é usado para criar ou atualizar um usuário.
+
 ```json
 {
     "fullName": "string",
@@ -65,35 +60,34 @@ Este modelo é usado para criar ou atualizar um usuário.
 }
 ```
 
-- fullName (obrigatório, string): O nome completo do usuário.
-- email (obrigatório, string): O email do usuário.
-- password (obrigatório, string): A senha do usuário.
-- password_confirmation (obrigatório, string): A confirmação da senha do usuário.
-- cpf (obrigatório, string): O CPF do usuário.
-- phone (obrigatório, string): O telefone do usuário.
-- zipCode (obrigatório, string): O CEP do usuário.
-- state (obrigatório, string): O estado do usuário.
-- city (obrigatório, string): A cidade do usuário.
-- neighborhood (obrigatório, string): O bairro do usuário.
-- address (obrigatório, string): O endereço do usuário.
-- number (obrigatório, string): O número do endereço do usuário.
-- complement (obrigatório, string): O complemento do endereço do usuário.
+- `fullName` (obrigatório, string): O nome completo do usuário.
+- `email` (obrigatório, string): O email do usuário.
+- `password` (obrigatório, string): A senha do usuário.
+- `password_confirmation` (obrigatório, string): A confirmação da senha do usuário.
+- `cpf` (obrigatório, string): O CPF do usuário.
+- `phone` (obrigatório, string): O telefone do usuário.
+- `zipCode` (obrigatório, string): O CEP do usuário.
+- `state` (obrigatório, string): O estado do usuário.
+- `city` (obrigatório, string): A cidade do usuário.
+- `neighborhood` (obrigatório, string): O bairro do usuário.
+- `address` (obrigatório, string): O endereço do usuário.
+- `number` (obrigatório, string): O número do endereço do usuário.
+- `complement` (obrigatório, string): O complemento do endereço do usuário.
 
-## Endpoints
+## Endpoints de Usuários
 
 ### Listar Usuários
-URL: /users
 
-Método: GET
+- **URL:** `/users`
+- **Método:** `GET`
+- **Descrição:** Retorna uma lista de todos os usuários disponíveis.
 
-Descrição: Retorna uma lista de todos os usuários disponíveis.
-
-Exemplo de Solicitação:
+**Exemplo de Solicitação:**
 ```http
 GET http://localhost:3333/users
 ```
 
-Resposta de Exemplo:
+**Exemplo de Resposta:**
 ```json
 [
     {
@@ -116,13 +110,12 @@ Resposta de Exemplo:
 ```
 
 ### Criar Usuário
-URL: /users
 
-Método: POST
+- **URL:** `/users`
+- **Método:** `POST`
+- **Descrição:** Cria um novo usuário.
 
-Descrição: Cria um novo usuário.
-
-Corpo da Solicitação:
+**Corpo da Solicitação:**
 ```json
 {
     "fullName": "Novo Usuário",
@@ -140,13 +133,12 @@ Corpo da Solicitação:
     "complement": "Complemento"
 }
 ```
-Exemplo de Solicitação:
+
+**Exemplo de Solicitação:**
 ```http
 POST http://localhost:3333/users
 Content-Type: application/json
-```
 
-```json
 {
     "fullName": "Novo Usuário",
     "email": "novo@usuario.com",
@@ -164,7 +156,7 @@ Content-Type: application/json
 }
 ```
 
-Resposta de Exemplo:
+**Exemplo de Resposta:**
 ```json
 {
     "id": "f23553cc-bbe4-4a40-b8f9-d7ea9b9cc5f4",
@@ -177,15 +169,18 @@ Resposta de Exemplo:
 ```
 
 ### Atualizar Usuário
-URL: /users/:id
 
-Método: PUT
+- **URL:** `/users/:id`
+- **Método:** `PUT`
+- **Descrição:** Atualiza um usuário existente pelo seu ID.
 
-Descrição: Atualiza um usuário existente pelo seu ID.
+**Parâmetros de URL:**
+- `id` (string): ID do usuário.
 
-Corpo da Solicitação:
-
+**Corpo da Solicitação:**
 ```json
+
+
 {
     "fullName": "Usuário Atualizado",
     "email": "atualizado@usuario.com",
@@ -201,13 +196,11 @@ Corpo da Solicitação:
 }
 ```
 
-Exemplo de Solicitação:
+**Exemplo de Solicitação:**
 ```http
 PUT http://localhost:3333/users/f23553cc-bbe4-4a40-b8f9-d7ea9b9cc5f4
 Content-Type: application/json
-```
 
-```json
 {
     "fullName": "Usuário Atualizado",
     "email": "atualizado@usuario.com",
@@ -223,8 +216,7 @@ Content-Type: application/json
 }
 ```
 
-Resposta de Exemplo:
-
+**Exemplo de Resposta:**
 ```json
 {
     "id": "f23553cc-bbe4-4a40-b8f9-d7ea9b9cc5f4",
@@ -236,39 +228,34 @@ Resposta de Exemplo:
 }
 ```
 
-## Endpoints de Autenticação
+### Autenticar Usuário
 
-### Criar Autenticação
-Realiza a autenticação do usuário e fornece um token de acesso.
+Autentica um usuário existente e fornece um token de acesso.
 
-#### URL: /sessions
-#### Método: POST
-#### Descrição: Cria uma nova autenticação.
+- **Endpoint:** `/sessions`
+- **Método:** `POST`
+- **Descrição:** Autentica um usuário existente e fornece um token de acesso.
 
 **Corpo da Solicitação:**
 ```json
 {
-    "email": "usuario@dominio.com",
+    "email": "user@example.com",
     "password": "senha123"
 }
 ```
 
-#### Exemplo de Solicitação:
-
+**Exemplo de Solicitação:**
 ```http
 POST http://localhost:3333/sessions
 Content-Type: application/json
-```
 
-```json
 {
-    "email": "usuario@dominio.com",
+    "email": "user@example.com",
     "password": "senha123"
 }
 ```
 
-#### Exemplo de Resposta:
-
+**Resposta de Exemplo:**
 ```json
 {
     "token": "seuTokenDeAcesso",
@@ -277,14 +264,21 @@ Content-Type: application/json
 }
 ```
 
+**Códigos de Resposta:**
+- **200 OK:** Autenticação bem-sucedida.
+- **400 Bad Request:** Erros de validação no corpo da solicitação.
+- **401 Unauthorized:** Credenciais inválidas.
+- **404 Not Found:** Usuário não encontrado.
+
 ## Endpoints de Alimentos
 
 ### Listar Alimentos
+
 Retorna uma lista de todos os alimentos disponíveis.
 
-#### URL: /foods/list
-#### Método: GET
-#### Descrição: Retorna uma lista de todos os alimentos disponíveis.
+- **URL:** `/foods/list`
+- **Método:** `GET`
+- **Descrição:** Retorna uma lista de todos os alimentos disponíveis.
 
 **Exemplo de Solicitação:**
 ```http
@@ -316,14 +310,15 @@ GET http://localhost:3333/foods/list
 ```
 
 **Códigos de Resposta:**
-- 200 OK: Lista de alimentos retornada com sucesso.
+- **200 OK:** Lista de alimentos retornada com sucesso.
 
 ### Detalhes do Alimento
+
 Retorna os detalhes de um alimento específico.
 
-#### URL: /foods/show/:id
-#### Método: GET
-#### Descrição: Retorna os detalhes de um alimento específico.
+- **URL:** `/foods/show/:id`
+- **Método:** `GET`
+- **Descrição:** Retorna os detalhes de um alimento específico.
 
 **Parâmetros de URL:**
 - `id` (string): ID do alimento.
@@ -347,8 +342,9 @@ GET http://localhost:3333/foods/show/f23553cc-bbe4-4a40-b8f9-d7ea9b9cc5f2
 ```
 
 **Códigos de Resposta:**
-- 200 OK: Detalhes do alimento retornados com sucesso.
-- 404 Not Found: Alimento não encontrado.
+- **200 OK:** Detalhes do alimento retornados com sucesso.
+- **404 Not Found:** Alimento não encontrado.
+
 
 ### Criar Alimento (Requer Autenticação de Administrador)
 Cria um novo alimento.
