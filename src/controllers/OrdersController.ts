@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { prisma } from "../lib/prisma";
 import { AppError } from "../errors/AppError";
 import Zod from 'zod';
+import { excludeFields } from "../utils/excludeFields";
 
 export class OrdersController  {
     public async list(request : Request, response : Response) {
@@ -13,8 +14,11 @@ export class OrdersController  {
                 foods: true,
             },
         });
-
-        return response.status(200).json(orders);
+        const ordersWithoutSensitiveFields = orders.map(order => ({
+            ...order,
+            user: excludeFields(order.user, ['password_hash']),
+          }));
+        return response.status(200).json(ordersWithoutSensitiveFields);
     }
 
     public async show(request : Request, response : Response) {
@@ -29,9 +33,13 @@ export class OrdersController  {
             },
         })
 
-        if(!order) throw new AppError('Order not found', 404);  
+        if(!order) throw new AppError('Order not found', 404); 
+        const orderWithoutSensitiveFields = {
+            ...order,
+            user: excludeFields(order.user, ['password_hash']),
+          }; 
         
-        return response.status(200).json(order);
+        return response.status(200).json(orderWithoutSensitiveFields);    
     }
 
     public async create(request: Request, response: Response){
@@ -62,7 +70,6 @@ export class OrdersController  {
                 foods: true,
             },
         });
-
         return response.status(200).json(order);
     }
 
@@ -110,7 +117,7 @@ export class OrdersController  {
                 foods: true,
             },
         });
-    
+        
         return response.status(200).json(order);
     }
     
@@ -137,7 +144,11 @@ export class OrdersController  {
         await prisma.order.delete({
             where: {id}
         })
-        return response.status(200).json(order);
+        const orderWithoutSensitiveFields = {
+            ...order,
+            user: excludeFields(order.user, ['password_hash']),
+          }; 
+        return response.status(200).json(orderWithoutSensitiveFields);
     }
     
 }
