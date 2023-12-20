@@ -103,15 +103,15 @@ export class UsersController  {
         const bodySchema = Zod.object({
           fullName: Zod.string().min(3).nullish(),
           email: Zod.string().email().nullish(),
-          cpf: Zod.string(),
-          phone: Zod.string(),
-          zipCode: Zod.string(),
-          state: Zod.string(),
-          city: Zod.string(),
-          neighborhood: Zod.string(),
-          address: Zod.string(),
-          number: Zod.string(),
-          complement: Zod.string(), // Adicione o campo complement
+          cpf: Zod.string().nullish(),
+          phone: Zod.string().nullish(),
+          zipCode: Zod.string().nullish(),
+          state: Zod.string().nullish(),
+          city: Zod.string().nullish(),
+          neighborhood: Zod.string().nullish(),
+          address: Zod.string().nullish(),
+          number: Zod.string().nullish(),
+          complement: Zod.string().nullish(), 
         }).strict();
     
         const { 
@@ -133,11 +133,12 @@ export class UsersController  {
     
         if (!userExists) throw new AppError('User not found', 404);
 
+        // Só atualiza se o cpf for o mesmo cadastrado
         const cpfExists = await prisma.user.findFirst({
           where: { cpf },
         });
       
-        if (cpfExists) throw new AppError('CPF já cadastrado.', 409);
+        if (cpfExists === cpf) throw new AppError('CPF já cadastrado.', 409);
     
         let data: { fullName?: string; email?: string; cpf?: string; phone?: string; zipCode?: string; state?: string; city?: string; neighborhood?: string; address?: string; number?: string; complement?: string } = {};
     
